@@ -1,5 +1,6 @@
 "use client";
-
+import Image from "next/image";
+import { useEffect } from "react";
 import React from "react";
 import DrawOutline from "@/components/DrawOutline";
 import { motion } from "framer-motion";
@@ -86,10 +87,10 @@ const HomePage = () => {
               whileHover={{ scale: 1.03 }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: id * 0.2 }}
-              viewport={{ once: true }}
+              transition={{ delay: id * 0.4 }}
+              viewport={{ once: false }}
             >
-              <img
+              <Image
                 src={`/ladders/ladder-${id}.jpg`}
                 alt={`Ladder ${id}`}
                 className="rounded-t-xl w-full h-64 object-cover"
