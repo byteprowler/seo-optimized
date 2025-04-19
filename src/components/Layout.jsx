@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Footer from './Footer';
 import Navbar from './Navbar';
 import React, { useState } from 'react'
 
@@ -19,6 +20,7 @@ export default function Layout({children}) {
     <div>
       <Navbar />
       {children}
+      <Footer />
     </div>
   )
 }

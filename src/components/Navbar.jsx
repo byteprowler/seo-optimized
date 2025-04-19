@@ -77,13 +77,13 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
           exit={{ x: "100%" }}
           transition={{ type: "spring", stiffness: 50 }}
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.2)",
+            backgroundColor: "rgba(255, 255, 255, 1)",
             backdropFilter: "blur(10px)",
           }}
-          className="fixed top-0 right-0 w-[75%] h-full p-10 bg-gray-500 text-white z-40">
+          className="fixed top-0 right-0 w-[75%] h-full p-10 bg-white text-black z-40">
             <div className="fixed inset-0 z-50 flex justify-end">
               {/* Sidebar */}
-              <div className="bg-inherit w-64 h-full p-6">
+              <div className="bg-white w-64 h-full p-6">
                 <div className="flex justify-between items-center mb-6">
                   <h2 className="text-lg font-extrabold text-gray-800">Menu</h2>
                 </div>
@@ -92,7 +92,7 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
                     <Link
                       key={link.name}
                       href={link.href}
-                      className="text-white flex items-center hover:text-blue-600 text-lg"
+                      className="text-black flex items-center hover:text-blue-600 text-lg"
                       onClick={toggleSidebar}
                     >
                       {link.icon}
