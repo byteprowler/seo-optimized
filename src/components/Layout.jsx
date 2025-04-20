@@ -3,6 +3,7 @@ import Footer from './Footer';
 import Navbar from './Navbar';
 import React, { useState } from 'react'
 
+
 export default function Layout({children}) {
     const [loading, setLoading] = useState(false);
     const router = useRouter();

@@ -4,6 +4,7 @@ import React from "react";
 import DrawOutline from "@/components/DrawOutline";
 import DrawCircleText from "@/components/DrawCircleText";
 import Image from "next/image";
+import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
@@ -40,6 +41,25 @@ const faqs = [
 
 const HomePage = () => {
   return (
+    <>
+    <NextSeo
+    title="Buy Aluminium Ladders | Strong & Reliable"
+    description="Top-tier aluminium ladders available for nationwide delivery in Nigeria. Shop now."
+    canonical="https://www.aluminiumladder.com"
+    openGraph={{
+      url: 'https://www.aluminiumladder.com',
+      title: 'Buy Aluminium Ladders | Strong & Reliable',
+      description: 'Top-tier aluminium ladders available for nationwide delivery in Nigeria. Shop now.',
+      images: [
+        {
+          url: 'https://www.aluminiumladder.com/images/ladder-og.jpg',
+          width: 800,
+          height: 600,
+          alt: 'Aluminium Ladder',
+        },
+      ],
+    }}
+    />
     <main className="space-y-20">
       {/* HERO SECTION */}
       <section
@@ -96,7 +116,7 @@ const HomePage = () => {
           className="absolute bottom-10 text-white"
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-        >
+          >
           <ChevronDown className="w-8 h-8 opacity-70" />
         </motion.div>
       </section>
@@ -188,6 +208,7 @@ const HomePage = () => {
         </div>
       </section>
     </main>
+    </>
   );
 };
 

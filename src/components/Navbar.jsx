@@ -39,8 +39,11 @@ const VARIANTS = {
   },
 }
 
-const HamburgerButton = ({ isOpen, toggleSidebar, scrolled }) => (
-  <MotionConfig transition={{ duration: 0.5, ease: "easeInOut" }}>
+const HamburgerButton = ({ isOpen, toggleSidebar, scrolled }) => {
+  const hamburgerColor = isOpen ? 'bg-black' : (scrolled ? 'bg-black' : 'bg-white');
+
+  return(
+    <MotionConfig transition={{ duration: 0.5, ease: "easeInOut" }}>
     <motion.button
       initial={false}
       animate={isOpen ? "open" : "closed"}
@@ -49,17 +52,17 @@ const HamburgerButton = ({ isOpen, toggleSidebar, scrolled }) => (
     >
       <motion.span
         variants={VARIANTS.top}
-        className={`absolute h-1 w-8 ${scrolled ? 'bg-black': 'bg-white'}`}
+        className={`absolute h-1 w-8 ${hamburgerColor}`}
         style={{ y: "-50%", left: "50%", x: "-50%", top: "35%" }}
       />
       <motion.span
         variants={VARIANTS.middle}
-        className={`absolute h-1 w-8 bg-gray-800 ${scrolled ? 'bg-black' : 'bg-white'}`}
+        className={`absolute h-1 w-8 bg-gray-800 ${hamburgerColor}`}
         style={{ left: "50%", x: "-50%", top: "50%", y: "-50%" }}
       />
       <motion.span
         variants={VARIANTS.bottom}
-        className={`absolute h-1 w-4 ${scrolled ? "bg-black" : "bg-white"}`}
+        className={`absolute h-1 w-4 ${hamburgerColor}`}
         style={{
           x: "-50%",
           y: "50%",
@@ -69,7 +72,9 @@ const HamburgerButton = ({ isOpen, toggleSidebar, scrolled }) => (
       />
     </motion.button>
   </MotionConfig>
-)
+)}
+
+
 
 const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
   return (
@@ -84,7 +89,7 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
             backgroundColor: "rgba(255, 255, 255, 1)",
             backdropFilter: "blur(10px)",
           }}
-          className="fixed top-0 right-0 w-[75%] h-full p-10 bg-white text-black z-40 justify-between"
+          className="fixed top-0 right-0 w-[75%] h-full p-10 bg-white text-black z-40 flex flex-col justify-between"
         >
           <div className="flex flex-col space-y-4">
 
@@ -106,9 +111,15 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
           <div className="space-y-4">
             <div className="space-x-4">
               {[
-                {icon: <FaFacebook />, href: 'https://facebook.com'}
-              ].map(({icon, href}, idx)(
-                <motion.a>
+                { icon: <FaFacebook />, href: 'https://facebook.com'},
+              ].map(({icon, href}, idx) => (
+                <motion.a
+                key={idx}
+                href={href}
+                target='_blank'
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.9 }}
+                className="text-gray-600 hover:text-black"> 
                 {icon}
               </motion.a>
               ))}
