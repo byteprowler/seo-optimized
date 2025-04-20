@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
-import { Home, Info, Phone, Facebook, Twitter, X, Github, Package } from 'lucide-react'
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
+import { FaFacebook } from 'react-icons/fa';
+import { Home, Info, Phone, Package } from 'lucide-react'
 import Link from 'next/link'
 
 const VARIANTS = {
@@ -105,7 +106,7 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
           <div className="space-y-4">
             <div className="space-x-4">
               {[
-                {icon: <Facebook />, href: 'https://facebook.com'}
+                {icon: <FaFacebook />, href: 'https://facebook.com'}
               ].map(({icon, href}, idx)(
                 <motion.a>
                 {icon}
