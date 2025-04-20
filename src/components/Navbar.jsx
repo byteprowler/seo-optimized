@@ -1,6 +1,9 @@
-import React, { useState, Fragment, useEffect } from 'react'
+'use client'
+
+import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
-import { Home, Info, Phone } from 'lucide-react';import Link from 'next/link'
+import { Home, Info, Phone, Package } from 'lucide-react'
+import Link from 'next/link'
 
 const VARIANTS = {
   top: {
@@ -80,28 +83,22 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
             backgroundColor: "rgba(255, 255, 255, 1)",
             backdropFilter: "blur(10px)",
           }}
-          className="fixed top-0 right-0 w-[75%] h-full p-10 bg-white text-black z-40">
-            <div className="fixed inset-0 z-50 flex justify-end">
-              {/* Sidebar */}
-              <div className="bg-white w-64 h-full p-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-lg font-extrabold text-gray-800">Menu</h2>
-                </div>
-                <div className="flex flex-col space-y-4">
-                  {navLinks.map((link) => (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      className="text-black flex items-center hover:text-blue-600 text-lg"
-                      onClick={toggleSidebar}
-                    >
-                      {link.icon}
-                      {link.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
+          className="fixed top-0 right-0 w-[75%] h-full p-10 bg-white text-black z-40"
+        >
+          <div className="flex flex-col space-y-4">
+            <h2 className="text-xl font-bold text-gray-800 mb-6">Menu</h2>
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-black flex items-center hover:text-blue-600 text-lg"
+                onClick={toggleSidebar}
+              >
+                {link.icon}
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </motion.nav>
       )}
     </AnimatePresence>
@@ -111,57 +108,73 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
-  };
+    setIsSidebarOpen((prev) => !prev)
+  }
 
   useEffect(() => {
-    document.body.style.overflow = isSidebarOpen ? "hidden" : "auto";
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = isSidebarOpen ? "hidden" : "auto"
     return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isSidebarOpen]);
+      document.body.style.overflow = "auto"
+    }
+  }, [isSidebarOpen])
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
+      const heroSection = document.getElementById('hero')
+      if (heroSection) {
+        const heroHeight = heroSection.offsetHeight
+        setScrolled(window.scrollY > heroHeight - 80)
+      } else {
+        setScrolled(window.scrollY > 50)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    handleScroll()
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
 
   const navLinks = [
     { name: "Home", href: "/", icon: <Home className="mr-2 w-4 h-4" /> },
+    { name: "Product", href: "/products", icon: <Package className="mr-2 w-4 h-4" /> },
     { name: "About", href: "/about", icon: <Info className="mr-2 w-4 h-4" /> },
     { name: "Contact", href: "/contact", icon: <Phone className="mr-2 w-4 h-4" /> },
   ]
 
-  // const BG_COLOR = scrolled
-  //   ? "bg-[rgba(255,255,255,0.2)] backdrop-blur-[20px] shadow-lg"
-  //   : "bg-transparent"
+  if (!mounted) return null
 
   return (
-    <nav className={`bg-white shadow px-4 py-3 flex justify-between items-center relative`}>
-      <div className="text-xl font-bold text-gray-800">Ladder.co</div>
+    <nav
+      className={`px-10 py-4 flex justify-between items-center fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled ? "bg-white shadow text-gray-800" : "bg-transparent text-white"
+      }`}
+    >
+      <div className="text-xl font-bold">Ladder.co</div>
 
-      {/* Desktop Menu */}
+      {/* Desktop Nav */}
       <div className="hidden md:flex space-x-6">
         {navLinks.map((link) => (
-          <Link key={link.name} href={link.href} className="text-gray-700 hover:text-blue-600">
+          <Link key={link.name} href={link.href} className="hover:text-blue-600">
             {link.name}
           </Link>
         ))}
       </div>
 
-      {/* Mobile Hamburger Button */}
+      {/* Mobile Hamburger */}
       <div className="md:hidden z-[60]">
         <HamburgerButton toggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
       </div>
 
-      {/* Flyout Panel */}
+      {/* Sidebar */}
       <SideBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} navLinks={navLinks} />
     </nav>
   )

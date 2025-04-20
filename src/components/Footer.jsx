@@ -12,7 +12,7 @@ export default function Footer() {
   transition={{ duration: 0.8 }}
   viewport={{ once: true }}
 >
-  <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-sm">
+  <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 text-sm">
     {[
       {
         title: "About Us",

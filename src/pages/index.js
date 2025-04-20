@@ -41,6 +41,7 @@ const HomePage = () => {
     <main className="space-y-20">
       {/* HERO SECTION */}
       <section
+        id="hero"
         className="relative min-h-screen flex flex-col overflow-hidden items-center justify-center text-center px-6 text-white"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1542222105-31a21d807f09?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
