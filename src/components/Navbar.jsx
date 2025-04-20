@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion'
-import { Home, Info, Phone, Package } from 'lucide-react'
+import { Home, Info, Phone, Facebook, Twitter, X, Github, Package } from 'lucide-react'
 import Link from 'next/link'
 
 const VARIANTS = {
@@ -38,7 +38,7 @@ const VARIANTS = {
   },
 }
 
-const HamburgerButton = ({ isOpen, toggleSidebar }) => (
+const HamburgerButton = ({ isOpen, toggleSidebar, scrolled }) => (
   <MotionConfig transition={{ duration: 0.5, ease: "easeInOut" }}>
     <motion.button
       initial={false}
@@ -48,17 +48,17 @@ const HamburgerButton = ({ isOpen, toggleSidebar }) => (
     >
       <motion.span
         variants={VARIANTS.top}
-        className="absolute h-1 w-8 bg-gray-800"
+        className={`absolute h-1 w-8 ${scrolled ? 'bg-black': 'bg-white'}`}
         style={{ y: "-50%", left: "50%", x: "-50%", top: "35%" }}
       />
       <motion.span
         variants={VARIANTS.middle}
-        className="absolute h-1 w-8 bg-gray-800"
+        className={`absolute h-1 w-8 bg-gray-800 ${scrolled ? 'bg-black' : 'bg-white'}`}
         style={{ left: "50%", x: "-50%", top: "50%", y: "-50%" }}
       />
       <motion.span
         variants={VARIANTS.bottom}
-        className="absolute h-1 w-4 bg-gray-800"
+        className={`absolute h-1 w-4 ${scrolled ? "bg-black" : "bg-white"}`}
         style={{
           x: "-50%",
           y: "50%",
@@ -83,9 +83,10 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
             backgroundColor: "rgba(255, 255, 255, 1)",
             backdropFilter: "blur(10px)",
           }}
-          className="fixed top-0 right-0 w-[75%] h-full p-10 bg-white text-black z-40"
+          className="fixed top-0 right-0 w-[75%] h-full p-10 bg-white text-black z-40 justify-between"
         >
           <div className="flex flex-col space-y-4">
+
             <h2 className="text-xl font-bold text-gray-800 mb-6">Menu</h2>
             {navLinks.map((link) => (
               <Link
@@ -98,6 +99,19 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
                 {link.name}
               </Link>
             ))}
+          </div>
+
+            {/* BOTTOM SECTION */}
+          <div className="space-y-4">
+            <div className="space-x-4">
+              {[
+                {icon: <Facebook />, href: 'https://facebook.com'}
+              ].map(({icon, href}, idx)(
+                <motion.a>
+                {icon}
+              </motion.a>
+              ))}
+            </div>
           </div>
         </motion.nav>
       )}
@@ -171,7 +185,7 @@ export default function Navbar() {
 
       {/* Mobile Hamburger */}
       <div className="md:hidden z-[60]">
-        <HamburgerButton toggleSidebar={toggleSidebar} isOpen={isSidebarOpen} />
+        <HamburgerButton toggleSidebar={toggleSidebar} isOpen={isSidebarOpen} scrolled={scrolled} />
       </div>
 
       {/* Sidebar */}

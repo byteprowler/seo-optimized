@@ -2,7 +2,9 @@
 
 import React from "react";
 import DrawOutline from "@/components/DrawOutline";
+import DrawCircleText from "@/components/DrawCircleText";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 
@@ -57,7 +59,7 @@ const HomePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Premium Aluminium Ladders for Every Job
+            <DrawCircleText />
           </motion.h1>
           <motion.p
             className="text-lg md:text-xl text-gray-100 mb-6"
@@ -71,12 +73,21 @@ const HomePage = () => {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.5 }}
-          >
+            className="hidden md:block">
             <DrawOutline
               href="/products"
             >
               Browse Products
             </DrawOutline>
+          </motion.div>
+
+          <motion.div
+            className="block md:hidden">
+            <Link
+            href="/products"
+            className="inline-block bg-white text-black font-semibold px-6 py-3 rounded-full shadow hover:bg-gray-200 transition">
+              Browse Products
+            </Link>
           </motion.div>
         </div>
 
