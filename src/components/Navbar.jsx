@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
-import { FaFacebook } from 'react-icons/fa';
+import { FaMapMarkedAlt } from 'react-icons/fa';
+import { FaFacebook, FaWhatsapp } from 'react-icons/fa';
 import { Home, Info, Phone, Package } from 'lucide-react'
 import Link from 'next/link'
 
@@ -115,9 +116,11 @@ const SideBar = ({ isOpen,setIsOpen, toggleSidebar, navLinks }) => {
 
             {/* BOTTOM SECTION */}
           <div className="space-y-4">
-            <div className="space-x-4">
+            <div className="space-x-4 flex flex-row items-center justify-center">
               {[
-                { icon: <FaFacebook />, href: 'https://facebook.com'},
+                { icon: <FaFacebook className='text-blue-700' />, href: 'https://facebook.com'},
+                { icon: <FaMapMarkedAlt className='text-red-700' />, href: 'https://facebook.com'},
+                { icon: <FaWhatsapp className='text-green-500' />, href: 'http://wa.me/2349012345678?text=I%20interested%20in%20your%20products'},
               ].map(({icon, href}, idx) => (
                 <motion.a
                 key={idx}
@@ -125,7 +128,7 @@ const SideBar = ({ isOpen,setIsOpen, toggleSidebar, navLinks }) => {
                 target='_blank'
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.9 }}
-                className="text-gray-600 hover:text-black"> 
+                className="text-gray-600 hover:text-black text-xl"> 
                 {icon}
               </motion.a>
               ))}
@@ -188,7 +191,7 @@ export default function Navbar() {
   return (
     <nav
       className={`px-10 py-4 flex justify-between items-center fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow text-gray-800" : "bg-transparent text-white"
+        scrolled ? "bg-white shadow text-gray-800" : "bg-inherit text-white"
       }`}
     >
       <div className="text-xl font-bold">Ladder.co</div>

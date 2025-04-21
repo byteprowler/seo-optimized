@@ -113,7 +113,7 @@ export default function HomePage() {
           
                 {/* Scroll Down Arrow */}
                 <motion.div
-                  className="absolute bottom-10 text-white"
+                  className="absolute bottom-10 text-white py-2"
                   animate={{ y: [0, 10, 0] }}
                   transition={{ repeat: Infinity, duration: 2 }}
                   >
