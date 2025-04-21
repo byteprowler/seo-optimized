@@ -57,7 +57,7 @@ const HamburgerButton = ({ isOpen, toggleSidebar, scrolled }) => {
       />
       <motion.span
         variants={VARIANTS.middle}
-        className={`absolute h-1 w-8 bg-gray-800 ${hamburgerColor}`}
+        className={`absolute h-1 w-8 ${hamburgerColor}`}
         style={{ left: "50%", x: "-50%", top: "50%", y: "-50%" }}
       />
       <motion.span
@@ -76,14 +76,20 @@ const HamburgerButton = ({ isOpen, toggleSidebar, scrolled }) => {
 
 
 
-const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
+const SideBar = ({ isOpen,setIsOpen, toggleSidebar, navLinks }) => {
   return (
     <AnimatePresence>
+      <>
+      {isOpen && (
+        <div
+        className="fixed inset-0 bg-blur bg-opacity-50 z-40"
+        onClick={() => setIsOpen(false)} />
+      )}
       {isOpen && (
         <motion.nav
-          initial={{ x: "100%" }}
-          animate={{ x: 0 }}
-          exit={{ x: "100%" }}
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
           transition={{ type: "spring", stiffness: 50 }}
           style={{
             backgroundColor: "rgba(255, 255, 255, 1)",
@@ -127,6 +133,7 @@ const SideBar = ({ isOpen, toggleSidebar, navLinks }) => {
           </div>
         </motion.nav>
       )}
+      </>
     </AnimatePresence>
   )
 }
@@ -201,7 +208,7 @@ export default function Navbar() {
       </div>
 
       {/* Sidebar */}
-      <SideBar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} navLinks={navLinks} />
+      <SideBar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} toggleSidebar={toggleSidebar} navLinks={navLinks} />
     </nav>
   )
 }

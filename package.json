@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sitemap": "next-sitemap",
+    "postbuild": "npm run sitemap"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.2",

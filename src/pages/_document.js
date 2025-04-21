@@ -8,7 +8,7 @@ export default function Document() {
       <Head>
         {/* Primary Meta Tags */}
         <meta charSet='UTF-8' />
-        <meta name="viewport" content='width=device-width, initial-scale=1' />
+        
         <meta name="title" content="Aluminium Ladder Store - Durable & Reliable" />
         <meta name="descriptions" content="Shop the best best aluminium ladders in Nigeria - strong, affordable, built to last. Natiowide Delivery available" />
         <meta name="keywords" content="aluminium ladder, foldable ladder, industrial ladder, buy ladder in Nigeria, home ladder" />
