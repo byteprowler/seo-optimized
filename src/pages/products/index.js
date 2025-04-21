@@ -21,7 +21,7 @@ export default function ProductsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.2 }}
           >
-            <Image src={ladder.image} alt={ladder.name} className="w-full" />
+            <Image src={ladder.image} width={500} height={500} alt={ladder.name} className="w-full" />
             <div className="p-4">
               <h2 className="text-xl font-semibold">{ladder.name}</h2>
               <p className="text-gray-600 text-sm mt-1">Durable, rust-free and easy to carry.</p>
