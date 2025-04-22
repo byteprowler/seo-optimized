@@ -5,6 +5,9 @@ import DrawOutline from "@/components/DrawOutline";
 import DrawCircleText from "@/components/DrawCircleText";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
@@ -39,7 +42,38 @@ const testimonials = [
   },
 ];
 
-export default function HomePage() {
+export async function getStaticProps() {
+  try {
+    const files = fs.readdirSync(path.join(process.cwd(), 'src', 'blog'))
+    
+    const posts = files.map((filename) => {
+      const markdownWithMeta = fs.readFileSync(
+        path.join(process.cwd(), 'src', 'blog', filename),
+        'utf-8'
+      )
+      const { data: frontmatter } = matter(markdownWithMeta)
+      return {
+        slug: filename.replace('.md', ''),
+        frontmatter,
+      }
+    }).sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
+    
+    return {
+      props: {
+        posts: posts.slice(0, 3),
+      },
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      props: {
+        posts: [],
+      },
+    }
+  }
+}
+
+export default function HomePage({posts}) {
   return (
     <>
       <NextSeo
@@ -67,6 +101,7 @@ export default function HomePage() {
                 className="relative min-h-screen flex flex-col overflow-hidden items-center justify-center text-center px-6 text-white"
                 style={{
                   backgroundImage: "url('https://images.unsplash.com/photo-1542222105-31a21d807f09?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+                  format: "webp",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -160,9 +195,10 @@ export default function HomePage() {
                       <Image
                         width={500}
                         height={500}
-                        src={`/ladders/ladder-${id}.jpg`}
+                        src={`https://images.pexels.com/photos/2116491/pexels-photo-2116491.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
                         alt={`Ladder ${id}`}
                         className="rounded-t-xl w-full h-64 object-cover"
+                        format="webp"
                       />
                       <div className="p-4">
                         <h4 className="font-bold text-lg">Ladder Model {id}</h4>
@@ -172,6 +208,23 @@ export default function HomePage() {
                   ))}
                 </div>
               </section>
+
+              {/* Blog */}
+
+              <div className="px-6 py-12">
+                <h2 className="text-2xl text-center font-bold mb-6">Latest Blog Posts</h2>
+                <div className="grid gap-6 md:grid-cols-3">
+                {posts.map(({ slug, frontmatter }) => (
+                <div key={slug} className="border p-4 rounded shadow">
+                 <h3 className="text-lg font-semibold">{frontmatter.title}</h3>
+                <p className="text-sm text-gray-600">{frontmatter.description}</p>
+              <Link href={`/blog/${slug}`} className="text-blue-500 mt-2 inline-block">
+              Read More
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
           
               {/* TESTIMONIALS */}
               <section className="bg-gray-50 py-20 px-6">
