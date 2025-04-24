@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import Loader from '@/components/Loader'
 import { marked } from 'marked'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
@@ -52,7 +53,7 @@ export default function PostPage({ frontmatter, content }) {
   if (html === null) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-xl">Loading post...</div>
+        <div><Loader /></div>
       </div>
     )
   }
