@@ -1,96 +1,38 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-import Head from 'next/head'
-import Link from 'next/link'
+import Link from "next/link";
+import { posts } from "../data/post";
+import { motion } from "framer-motion";
 
-export async function getStaticProps() {
-  const files = fs.readdirSync(path.join(process.cwd(), 'src', 'blog'))
-  
-  const posts = files.map((filename) => {
-    const markdownWithMeta = fs.readFileSync(
-      path.join(process.cwd(), 'src', 'blog', filename),
-      'utf-8'
-    )
-    const { data: frontmatter } = matter(markdownWithMeta)
-    return {
-      slug: filename.replace('.md', ''),
-      frontmatter,
-    }
-  }).sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
-
-  return {
-    props: {
-      posts,
-    },
-  }
-}
-
-export default function BlogIndex({ posts }) {
+export default function BlogHome() {
   return (
-    <>
-      <Head>
-        <title>Blog | My Site</title>
-        <meta name="description" content="Latest blog posts" />
-      </Head>
-      
-      {/* Hero Section */}
+    <main className="space-y-20">
       <section
-        id='hero'
-        style={{
-          backgroundImage: 'url("https://images.pexels.com/photos/4947007/pexels-photo-4947007.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-        className="relative min-h-[50vh] flex items-center justify-center text-white"
-      >
-        <div className="absolute inset-0 bg-black/60 z-0" />
-        <div className="relative z-10 text-center p-6 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-4">Blog Posts</h1>
-          <p className="text-xl md:text-2xl">Discover our latest articles and insights</p>
-        </div>
+      id="hero"
+      className="relative min-h-screen flex space-y-8 flex-col overflow-hidden items-center justify-center text-center px-6 text-white"
+      style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1519143009590-e3800b9df468?q=80&w=1384&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}>
+      <h1 className="text-6xl uppercase font-bold mb-8">Blogs</h1>
       </section>
-
-      {/* Posts Section */}
-      <section className="py-16 px-4 max-w-4xl mx-auto">
-        <div className="grid gap-12">
-          {posts.map((post) => (
-            <article 
-              key={post.slug} 
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-            >
-              <Link href={`/blog/${post.slug}`} className="block">
-                <div className="p-6">
-                  <h2 className="text-2xl font-bold mb-2 hover:text-blue-600 transition-colors">
-                    {post.frontmatter.title}
-                  </h2>
-                  
-                  {post.frontmatter.date && (
-                    <time 
-                      className="text-gray-500 text-sm block mb-3"
-                      dateTime={post.frontmatter.date}
-                    >
-                      {new Date(post.frontmatter.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </time>
-                  )}
-                  
-                  {post.frontmatter.description && (
-                    <p className="text-gray-700 mb-4">{post.frontmatter.description}</p>
-                  )}
-                  
-                  <span className="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors">
-                    Read More
-                  </span>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
-      </section>
-    </>
-  )
+      <div className="max-w-5xl mx-auto px-6">
+      <ul className="space-y-8">
+        {posts.map((post) => (
+          <motion.li 
+          key={post.slug}
+          className="border-b pb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}>
+            <Link href={`/blog/${post.slug}`} className="text-2xl font-semibold text-blue-700 hover:underline">
+              {post.title}
+            </Link>
+            <p className="text-gray-600 mt-1">{post.description}</p>
+            <p className="text-sm text-gray-400">{new Date(post.date).toDateString()}</p>
+          </motion.li>
+        ))}
+      </ul>
+      </div>
+    </main>
+  );
 }

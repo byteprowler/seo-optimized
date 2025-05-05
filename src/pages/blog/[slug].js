@@ -1,83 +1,41 @@
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
-import Loader from '@/components/Loader'
-import { marked } from 'marked'
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useRouter } from "next/router";
+import { posts } from "../data/post";
+import { NextSeo } from "next-seo";
+import Loader from "@/components/Loader";
 
-// Configure marked
-marked.setOptions({
-  gfm: true,
-  breaks: true,
-})
+export default function BlogPost() {
+  const router = useRouter();
+  const { slug } = router.query;
 
-export async function getStaticPaths() {
-  const files = fs.readdirSync(path.join(process.cwd(), 'src', 'blog'))
-  const paths = files.map((filename) => ({
-    params: { slug: filename.replace('.md', '') },
-  }))
+  const post = posts.find((p) => p.slug === slug);
 
-  return { paths, fallback: false }
-}
-
-export async function getStaticProps({ params: { slug } }) {
-  try {
-    const markdownWithMeta = fs.readFileSync(
-      path.join(process.cwd(), 'src', 'blog', `${slug}.md`),
-      'utf-8'
-    )
-    const { data: frontmatter, content } = matter(markdownWithMeta)
-    return { props: { frontmatter, content } }
-  } catch (error) {
-    return { notFound: true }
-  }
-}
-
-export default function PostPage({ frontmatter, content }) {
-  const [html, setHtml] = useState(null) // Initialize as null for loading state
-
-  useEffect(() => {
-    import('dompurify')
-      .then((mod) => {
-        const DOMPurify = mod.default
-        setHtml(DOMPurify.sanitize(marked(content)))
-      })
-      .catch((err) => {
-        console.error('Failed to load DOMPurify:', err)
-        // Fallback to unsanitized content with warning
-        setHtml(`<!-- WARNING: Content not sanitized -->\n${marked(content)}`)
-      })
-  }, [content])
-
-  if (html === null) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div><Loader /></div>
-      </div>
-    )
-  }
+  if (!post) return <div className="grid place-content-center bg-indigo-300 bg-cover">
+    <Loader />
+    Loading
+    </div>;
 
   return (
     <>
-      <Head>
-        <title>{frontmatter.title} | My Blog</title>
-        <meta name="description" content={frontmatter.description || "Blog post"} />
-      </Head>
-      <article className="max-w-3xl mx-auto px-4 py-10">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">{frontmatter.title}</h1>
-          {frontmatter.date && (
-            <time className="text-gray-600" dateTime={frontmatter.date}>
-              {new Date(frontmatter.date).toLocaleDateString()}
-            </time>
-          )}
-        </header>
+      <NextSeo
+        title={post.title + " | J&L Powertools"}
+        description={post.description}
+        canonical={`https://yourdomain.com/blog/${post.slug}`}
+        openGraph={{
+          title: post.title,
+          description: post.description,
+          url: `https://yourdomain.com/blog/${post.slug}`,
+          siteName: "J&L Powertools",
+        }}
+      />
+
+      <main className="max-w-6xl mx-auto px-6 py-12">
+        <h1 className="text-4xl font-bold mb-6">{post.title}</h1>
+        <p className="text-gray-400 text-sm mb-8">{new Date(post.date).toDateString()}</p>
         <div
-          className="prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: html }}
+           className="text-lg leading-relaxed text-gray-700 space-y-4 [&_p]:mb-4 [&_strong]:text-gray-900 [&_h2]:text-2xl [&_h2]:mt-6"
+           dangerouslySetInnerHTML={{ __html: post.content }}
         />
-      </article>
+      </main>
     </>
-  )
+  );
 }

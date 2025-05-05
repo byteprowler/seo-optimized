@@ -5,7 +5,7 @@ export default function DrawOutline({children, ...rest}) {
   return (
     <Link
       {...rest}
-      className="group relative px-4 py-2 font-medium text-black transition-colors duration-[400ms] hover-bg-indigo-400 hover:text-indigo-400"
+      className="group relative px-4 py-2 font-medium text-white transition-colors duration-[400ms] hover-bg-indigo-400 hover:text-indigo-400"
     >
       <span>{children}</span>
 

@@ -5,7 +5,7 @@ import Image from "next/image";
 const ladders = [
   { name: "6ft Aluminium Ladder", image: "https://images.unsplash.com/photo-1711375164857-9910e8b8901a?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
   { name: "10ft Multi-Purpose", image: "https://images.unsplash.com/photo-1575737685561-3ce224445a59?q=80&w=1376&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-  { name: "Foldable Extension", image: "/ladders/ladder-3.jpg" },
+  { name: "Foldable Extension", image: "/ladder-ceo.jpg" },
 ];
 
 export default function ProductsPage() {

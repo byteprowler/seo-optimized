@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import { FaMapMarkedAlt } from 'react-icons/fa';
 import { FaFacebook, FaWhatsapp } from 'react-icons/fa';
+import Image from 'next/image';
 import { Home, Info, Phone, Package } from 'lucide-react'
-import Link from 'next/link'
+import Link from 'next/link';
 
 const VARIANTS = {
   top: {
@@ -190,11 +191,14 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`px-10 py-4 flex justify-between items-center fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`px-8 py-4 flex justify-between items-center fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled ? "bg-white shadow text-gray-800" : "bg-inherit text-white"
       }`}
     >
-      <div className="text-xl font-bold">Ladder.co</div>
+      <Link href={'/'} className="text-xl font-bold">
+        {/* <JLPowertoolsLogo className="w-36 h-auto" /> */}
+        <Image src='/jlp.png' width={50} height={150} alt='Whatever' className='overflow-hidden rounded-sm' />
+        </Link>
 
       {/* Desktop Nav */}
       <div className="hidden md:flex space-x-6">

@@ -6,7 +6,7 @@ import {motion} from 'framer-motion'
 export default function Footer() {
   return (
 <motion.footer
-  className="bg-gray-900 text-white px-6 max-h-screen top-0 py-10 mt-20"
+  className="bg-gray-900 text-white bottom-1 px-6 max-h-screen top-0 py-10 mt-20"
   initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8 }}
@@ -107,7 +107,7 @@ export default function Footer() {
     transition={{ delay: 0.6, duration: 0.5 }}
     viewport={{ once: true }}
   >
-    &copy; {new Date().getFullYear()} LadderShop Inc. All rights reserved.
+    &copy; {new Date().getFullYear()} J&L Powertools. All rights reserved.
   </motion.div>
 </motion.footer>
   )
