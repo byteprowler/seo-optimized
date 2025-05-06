@@ -181,10 +181,10 @@ export default function Navbar() {
   }, [])
 
   const navLinks = [
-    { name: "Home", href: "/", icon: <Home className="mr-2 w-4 h-4" /> },
-    { name: "Product", href: "/products", icon: <Package className="mr-2 w-4 h-4" /> },
-    { name: "About", href: "/about", icon: <Info className="mr-2 w-4 h-4" /> },
-    { name: "Contact", href: "/contact", icon: <Phone className="mr-2 w-4 h-4" /> },
+    { name: "HOME", href: "/", icon: <Home className="mr-2 w-4 h-4" /> },
+    { name: "PRODUCT", href: "/products", icon: <Package className="mr-2 w-4 h-4" /> },
+    { name: "ABOUT", href: "/about", icon: <Info className="mr-2 w-4 h-4" /> },
+    { name: "CONTACT", href: "/contact", icon: <Phone className="mr-2 w-4 h-4" /> },
   ]
 
   if (!mounted) return null
@@ -192,7 +192,7 @@ export default function Navbar() {
   return (
     <nav
       className={`px-8 py-4 flex justify-between items-center fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow text-gray-800" : "bg-inherit text-white"
+        scrolled ? "bg-white shadow text-gray-800" : "bg-inherit text-gray-500"
       }`}
     >
       <Link href={'/'} className="text-xl font-bold">
@@ -203,7 +203,7 @@ export default function Navbar() {
       {/* Desktop Nav */}
       <div className="hidden md:flex space-x-6">
         {navLinks.map((link) => (
-          <Link key={link.name} href={link.href} className="hover:text-blue-600">
+          <Link key={link.name} href={link.href} className="hover:text-[#FACC15]">
             {link.name}
           </Link>
         ))}
