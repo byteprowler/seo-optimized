@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { posts } from "../data/post";
+import { posts } from "@/data/post";
 import { NextSeo } from "next-seo";
 import Loader from "@/components/Loader";
 
@@ -9,7 +9,7 @@ export default function BlogPost() {
 
   const post = posts.find((p) => p.slug === slug);
 
-  if (!post) return <div className="grid place-content-center bg-indigo-300 bg-cover">
+  if (!post) return <div className="flex w-screen h-screen items-center justify-center flex-col bg-indigo-300">
     <Loader />
     Loading
     </div>;

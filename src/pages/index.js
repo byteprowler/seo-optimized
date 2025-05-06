@@ -5,9 +5,7 @@ import DrawOutline from "@/components/DrawOutline";
 import DrawCircleText from "@/components/DrawCircleText";
 import Image from "next/image";
 import { NextSeo } from "next-seo";
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+import { posts } from "@/data/post";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
@@ -42,38 +40,8 @@ const testimonials = [
   },
 ];
 
-export async function getStaticProps() {
-  try {
-    const files = fs.readdirSync(path.join(process.cwd(), 'src', 'blog'))
-    
-    const posts = files.map((filename) => {
-      const markdownWithMeta = fs.readFileSync(
-        path.join(process.cwd(), 'src', 'blog', filename),
-        'utf-8'
-      )
-      const { data: frontmatter } = matter(markdownWithMeta)
-      return {
-        slug: filename.replace('.md', ''),
-        frontmatter,
-      }
-    }).sort((a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date))
-    
-    return {
-      props: {
-        posts: posts.slice(0, 3),
-      },
-    }
-  } catch (error) {
-    console.error(error)
-    return {
-      props: {
-        posts: [],
-      },
-    }
-  }
-}
-
-export default function HomePage({posts}) {
+export default function HomePage() {
+  const latest = posts.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
   return (
     <>
       <NextSeo
@@ -209,22 +177,22 @@ export default function HomePage({posts}) {
                 </div>
               </section>
 
-              {/* Blog */}
-
-              <div className="px-6 py-12">
-                <h2 className="text-2xl text-center font-bold mb-6">Latest Blog Posts</h2>
-                <div className="grid gap-6 md:grid-cols-3">
-                {posts.map(({ slug, frontmatter }) => (
-                <div key={slug} className="border p-4 rounded shadow">
-                 <h3 className="text-lg font-semibold">{frontmatter.title}</h3>
-                <p className="text-sm text-gray-600">{frontmatter.description}</p>
-              <Link href={`/blog/${slug}`} className="text-blue-500 mt-2 inline-block">
-              Read More
-            </Link>
-          </div>
-        ))}
+{/* Blog */}
+<div className="px-6 py-12">
+  <h2 className="text-2xl text-center font-bold mb-6">Latest Blog Posts</h2>
+  <div className="grid gap-6 divide-y md:grid-cols-3">
+    {latest.map((post) => (
+      <div key={post.slug} className="hover:shadow-md p-4 rounded shadow">
+        <h3 className="text-lg font-semibold">{post.title}</h3>
+        <p className="text-sm text-gray-600">{post.description}</p>
+        <Link href={`/blog/${post.slug}`} className="text-blue-500 mt-2 inline-block">
+          Read More
+        </Link>
       </div>
-    </div>
+    ))}
+  </div>
+</div>
+
           
               {/* TESTIMONIALS */}
               <section className="bg-gray-50 py-20 px-6">

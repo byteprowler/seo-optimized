@@ -21,7 +21,7 @@ export default function Document() {
         <meta property="og:url" content="https://www.yoursite.come" />
         <meta property="og:title" content="Aluminium Ladder Store - Durabl& Reliable" />
         <meta property="og:description" content="Shop the best aluminium ladders in Nigeria - strong, affordable and built to last." />
-        <meta property="og:image" content="https://www.yoursite.com/images/og-banner.jpg" />
+        <meta property="og:image" content="/public/jlp.png" />
       
         {/* Twitter */}
       </Head>
