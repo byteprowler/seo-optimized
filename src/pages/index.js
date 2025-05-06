@@ -8,6 +8,7 @@ import { NextSeo } from "next-seo";
 import { posts } from "@/data/post";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { products } from "@/data/product";
 import { ChevronDown } from "lucide-react";
 
 const faqs = [
@@ -41,7 +42,10 @@ const testimonials = [
 ];
 
 export default function HomePage() {
+
   const latest = posts.sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
+  const topProducts = products.slice(0, 3);
+
   return (
     <>
       <NextSeo
@@ -146,36 +150,45 @@ export default function HomePage() {
                 </div>
               </section>
           
-              {/* TOP SELLERS */}
-              <section className="px-6">
-                <h2 className="text-3xl font-bold text-center mb-10">Top Sellers</h2>
-                <div className="grid md:grid-cols-3 gap-6">
-                  {[1, 2, 3].map((id) => (
-                    <motion.div
-                      key={id}
-                      className="rounded-xl border bg-white shadow hover:shadow-lg transition"
-                      whileHover={{ scale: 1.03 }}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: id * 0.4 }}
-                      viewport={{ once: false }}
-                    >
-                      <Image
-                        width={500}
-                        height={500}
-                        src={`https://images.pexels.com/photos/2116491/pexels-photo-2116491.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
-                        alt={`Ladder ${id}`}
-                        className="rounded-t-xl w-full h-64 object-cover"
-                        format="webp"
-                      />
-                      <div className="p-4">
-                        <h4 className="font-bold text-lg">Ladder Model {id}</h4>
-                        <p className="text-gray-500">Perfect for indoor/outdoor use.</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </section>
+{/* TOP PRODUCTS SECTION */}
+<section className="px-6">
+  <h2 className="text-3xl font-bold text-center mb-10">Top Products</h2>
+  <div className="grid md:grid-cols-3 gap-6">
+    {topProducts.map((product, i) => (
+      <motion.div
+        key={i}
+        className="rounded-xl border bg-white shadow hover:shadow-lg transition"
+        whileHover={{ scale: 1.03 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.4 }}
+        viewport={{ once: false }}
+      >
+        <Image
+          width={500}
+          height={500}
+          src={product.image}
+          alt={product.name}
+          className="rounded-t-xl w-full h-64 object-cover"
+        />
+        <div className="p-4">
+          <h4 className="font-bold text-lg">{product.name}</h4>
+          <p className="text-gray-500 text-sm mt-1">Height: {product.height}</p>
+        </div>
+        <div className="text-center mt-6">
+      </div>
+      </motion.div>
+    ))}      
+  </div>
+<div className="text-center mt-8">
+  <Link
+    href="/products"
+    className="inline-block bg-[#FACC15] hover:bg-yellow-400 text-white px-6 py-2 rounded-full font-semibold"
+  >
+    View All Products
+  </Link>
+</div>
+</section>
 
 {/* Blog */}
 <div className="px-6 py-12">
@@ -194,41 +207,41 @@ export default function HomePage() {
 </div>
 
           
-              {/* TESTIMONIALS */}
-              <section className="bg-gray-50 py-20 px-6">
-                <h2 className="text-3xl font-bold text-center mb-10">What Our Customers Say</h2>
-                <div className="flex gap-6 overflow-x-auto snap-x">
-                  {testimonials.map((t, i) => (
-                    <motion.div
-                      key={i}
-                      className="snap-center min-w-[300px] bg-white rounded-xl shadow p-6"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.2 }}
-                      viewport={{ once: true }}
-                    >
-                      <p className="italic text-gray-700">&quot;{t.quote}&quot;</p>
-                      <div className="mt-4 font-bold text-blue-600">{t.name}</div>
-                    </motion.div>
-                  ))}
-                </div>
-              </section>
+{/* TESTIMONIALS */}
+<section className="bg-gray-50 py-20 px-6">
+  <h2 className="text-3xl font-bold text-center mb-10">What Our Customers Say</h2>
+  <div className="flex gap-6 overflow-x-auto snap-x">
+    {testimonials.map((t, i) => (
+      <motion.div
+         key={i}
+        className="snap-center min-w-[300px] bg-white rounded-xl shadow p-6"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: i * 0.2 }}
+        viewport={{ once: true }}
+      >
+        <p className="italic text-gray-700">&quot;{t.quote}&quot;</p>
+        <div className="mt-4 font-bold text-blue-600">{t.name}</div>
+      </motion.div>
+    ))}
+  </div>
+</section>
           
-              {/* FAQ SECTION */}
-              <section className="px-6 max-w-3xl mx-auto">
-                <h2 className="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
-                <div className="space-y-4">
-                  {faqs.map((faq, i) => (
-                    <details key={i} className="group border rounded-xl p-4 cursor-pointer">
-                      <summary className="font-semibold text-lg group-open:text-blue-600">
-                        {faq.question}
-                      </summary>
-                      <p className="mt-2 text-gray-600">{faq.answer}</p>
-                    </details>
-                  ))}
-                </div>
-              </section>
-            </main>
-    </>
+  {/* FAQ SECTION */}
+  <section className="px-6 max-w-3xl mx-auto">
+    <h2 className="text-3xl font-bold text-center mb-10">Frequently Asked Questions</h2>
+    <div className="space-y-4">
+      {faqs.map((faq, i) => (
+        <details key={i} className="group border rounded-xl p-4 cursor-pointer">
+          <summary className="font-semibold text-lg group-open:text-blue-600">
+             {faq.question}
+          </summary>
+          <p className="mt-2 text-gray-600">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+</main>
+</>
   )
 }
