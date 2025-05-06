@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { FaWhatsapp } from "react-icons/fa";
 
 const ladders = [
   {
@@ -87,27 +87,31 @@ export default function ProductsPage() {
             <div className="relative h-64 overflow-hidden">
               <Image
                 src={ladder.image}
-                alt={ladder.name}
+                alt={`${ladder.name} for sale in Nigeria`}
                 width={500}
                 height={500}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
             </div>
-            <div className="p-5">
+            <div className="p-5 place-content-center">
               <h2 className="text-xl font-bold text-gray-800">{ladder.name}</h2>
               <p className="text-sm text-gray-500 mb-2">Height: {ladder.height}</p>
 
               {/* WhatsApp to Order */}
-              <Link
-                href={`https://wa.me/2348035717860?text=Hello,%20I'm%20interested%20in%20the%20${encodeURIComponent(
-                  ladder.name
-                )}`}
-                target="_blank"
-                className="inline-block mt-3 px-4 py-2 bg-green-500 text-white rounded-full text-sm font-medium hover:bg-green-600"
-              >
-                WhatsApp to Order
-              </Link>
+              <button
+                onClick={() => {
+                  window.open(
+                    `https://wa.me/2348035717860?text=Hello,%20I'm%20interested%20in%20the%20${encodeURIComponent(
+                      ladder.name
+                    )}`,
+                    "_blank"
+                  );
+                }}
+                className="flex items-center justify-center gap-2 mt-3 px-4 py-2 border border-green-500 hover:bg-green-500 text-green-700 hover:text-white rounded-md text-sm font-semibold transition-colors duration-300 w-full"
+>
+                WhatsApp to Order <FaWhatsapp />
+              </button>
             </div>
           </motion.div>
         ))}
