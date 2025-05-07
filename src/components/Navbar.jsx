@@ -197,7 +197,7 @@ export default function Navbar() {
     >
       <Link href={'/'} className="text-xl font-bold">
         {/* <JLPowertoolsLogo className="w-36 h-auto" /> */}
-        <Image src='/jlp.png' width={50} height={150} alt='Whatever' className='overflow-hidden rounded-sm' />
+        <Image src='/jlp.png' width={70} height={150} alt='Whatever' className='overflow-hidden rounded-sm' />
         </Link>
 
       {/* Desktop Nav */}

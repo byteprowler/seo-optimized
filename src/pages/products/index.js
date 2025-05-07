@@ -108,7 +108,7 @@ export default function ProductsPage() {
                     "_blank"
                   );
                 }}
-                className="flex hover:mouse-pointer items-center justify-center gap-2 mt-3 px-4 py-2 border border-green-500 hover:bg-green-500 text-green-700 hover:text-white rounded-md text-sm font-semibold transition-colors duration-300 w-full"
+                className="flex hover:mouse-clicker items-center justify-center gap-2 mt-3 px-4 py-2 border border-green-500 hover:bg-green-500 text-green-700 hover:text-white rounded-md text-sm font-semibold transition-colors duration-300 w-full"
 >
                 WhatsApp to Order <FaWhatsapp />
               </button>
