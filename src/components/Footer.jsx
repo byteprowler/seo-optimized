@@ -1,18 +1,20 @@
 import React from 'react'
 import Link from 'next/link'
-import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedinIn } from "react-icons/fa";
-import {motion} from 'framer-motion'
+import { FaFacebookF, FaInstagram, FaLinkedinIn, FaPhoneAlt } from "react-icons/fa";
+import { FaXTwitter, FaConnectdevelop } from "react-icons/fa6";
+import {motion} from 'framer-motion';
+import { CiMail } from "react-icons/ci";
 
 export default function Footer() {
   return (
 <motion.footer
-  className="bg-gray-900 text-white bottom-1 px-6 max-h-screen top-0 py-10 mt-20"
+  className="bg-gray-900 text-white px-6 py-10 mt-20"
   initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8 }}
   viewport={{ once: true }}
 >
-  <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 text-sm">
+  <div className="max-w-6xl space-between mx-auto grid md:grid-cols-3 gap-6 text-sm">
     {[
       {
         title: "About Us",
@@ -34,12 +36,30 @@ export default function Footer() {
       },
       {
         title: "Contact",
-        content: (
-          <>
-            <p>Email: support@laddershop.com</p>
-            <p>Phone: +123 456 7890</p>
-          </>
-        ),
+       content: (
+  <div>
+    <div className="flex flex-col gap-2">
+          <Link className="flex text-center items-center" href={'/'}>
+             <CiMail /> <span className="ml-2">Email</span>
+          </Link>
+          <Link className="flex text-center items-center" href={'/'}>
+             <FaFacebookF /> <span className="ml-2">Facebook</span>
+          </Link>
+          <Link className="flex text-center items-center" href={'/'}>
+             <FaInstagram /> <span className="ml-2">Instagram</span>
+          </Link>
+          <Link className="flex text-center items-center" href={'/'}>
+             <FaXTwitter /> <span className="ml-2">Twitter</span>
+          </Link>
+          <Link className="flex text-center items-center" href={'/'}>
+             <FaLinkedinIn /> <span className="ml-2">LinkedIn</span>
+          </Link>
+          <Link className="flex text-center items-center" href={'https://byteprowler.vercel.app'}>
+             <FaConnectdevelop /> <span className="ml-2">Developer</span>
+          </Link>
+    </div>
+  </div>
+),
       },
     ].map((item, i) => (
       <motion.div
@@ -50,12 +70,13 @@ export default function Footer() {
         viewport={{ once: true }}
       >
         <h4 className="font-semibold text-lg mb-2">{item.title}</h4>
+        <div>
         {item.content}
+        </div>
       </motion.div>
     ))}
   </div>
 
-  {/* SOCIAL ICONS */}
   <motion.div
   className="flex justify-center gap-4 mt-8"
   initial={{ opacity: 0, y: 20 }}
@@ -63,41 +84,7 @@ export default function Footer() {
   transition={{ delay: 0.5, duration: 0.6 }}
   viewport={{ once: true }}
 >
-  <a
-    href="https://facebook.com/YourPage"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-gray-700 p-2 rounded-full hover:bg-blue-600 transition"
-  >
-    <FaFacebookF className="text-white w-4 h-4" />
-  </a>
 
-  <a
-    href="https://instagram.com/YourPage"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-gray-700 p-2 rounded-full hover:bg-pink-500 transition"
-  >
-    <FaInstagram className="text-white w-4 h-4" />
-  </a>
-
-  <a
-    href="https://twitter.com/YourPage"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-gray-700 p-2 rounded-full hover:bg-blue-400 transition"
-  >
-    <FaTwitter className="text-white w-4 h-4" />
-  </a>
-
-  <a
-    href="https://linkedin.com/in/YourProfile"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-gray-700 p-2 rounded-full hover:bg-blue-700 transition"
-  >
-    <FaLinkedinIn className="text-white w-4 h-4" />
-  </a>
 </motion.div>  
 
   <motion.div

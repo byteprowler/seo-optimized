@@ -185,6 +185,7 @@ export default function Navbar() {
     { name: "PRODUCT", href: "/products", icon: <Package className="mr-2 w-4 h-4" /> },
     { name: "ABOUT", href: "/about", icon: <Info className="mr-2 w-4 h-4" /> },
     { name: "CONTACT", href: "/contact", icon: <Phone className="mr-2 w-4 h-4" /> },
+    { name: "BLOG", href: "/blog", icon: <Phone className="mr-2 w-4 h-4" /> },
   ]
 
   if (!mounted) return null

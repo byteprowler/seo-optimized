@@ -2,7 +2,7 @@ export const posts = [
     {
       slug: "best-aluminum-ladders-nigeria",
       title: "Best Aluminum Ladders for Nigerian Roofers",
-      description: "Discover the top aluminum ladders tailored for Nigerian roofers. Learn why they’re the safest, most efficient option in the market.",
+      description: ["Discover the top aluminum ladders tailored for Nigerian roofers. Learn why they’re the safest, most efficient option in the market."],
       date: "2025-05-05",
       content: `
         <p>If you're a professional roofer in Nigeria, the right aluminum ladder can make or break your efficiency and safety on the job. With Nigeria’s varied climate conditions and unique roofing structures, aluminum ladders have become the go-to solution for many roofers looking for lightweight durability, portability, and strength.</p>
@@ -16,7 +16,7 @@ export const posts = [
     {
       slug: "ladder-types-and-their-uses",
       title: "Top 3 Ladder Types and Their Uses in Nigeria",
-      description: "Step, extension, and platform ladders—learn how each ladder type fits different Nigerian industries and home use cases.",
+      description: ["Step, extension, and platform ladders—learn how each ladder type fits different Nigerian industries and home use cases."],
       date: "2025-05-05",
       content: `
         <p>When it comes to ladders, one size doesn’t fit all jobs. Different jobs in Nigeria require different types of ladders, and using the wrong one could result in serious injury or poor work output. In this blog, we'll break down the top three ladder types: step, extension, and platform ladders, and their best use cases for Nigerians.</p>
@@ -30,7 +30,7 @@ export const posts = [
     {
       slug: "why-invest-in-scaffoldings",
       title: "Why Investing in Scaffolding Equipment Matters for Nigerian Businesses",
-      description: "Explore why quality scaffolding is a must-have for Nigerian construction, maintenance, and industrial sectors.",
+      description: ["Explore why quality scaffolding is a must-have for Nigerian construction, maintenance, and industrial sectors."],
       date: "05-05-2025",
       content: `
         <p>Scaffolding is the backbone of modern construction and maintenance work in Nigeria. Whether you're building high-rises in Abuja or painting a church in Enugu, scaffolds provide the height and stability needed to get the job done safely and efficiently.</p>

@@ -1,6 +1,63 @@
 import Link from "next/link";
 import { posts } from "@/data/post";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+
+const LETTER_DELAY = 0.050;
+const BOX_FADE_DURATION = 0.25;
+
+// const FADE_DELAY = 5;
+// const MAIN_FADE_DURATION = 0.25;
+
+const SWAP_DELAY_IN_MS = 50000;
+
+const Typewrite = ({ examples }) => {
+  const [restartKey, setRestartKey] = useState(0);
+  const current = examples[restartKey % examples.length];
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setRestartKey((prev) => prev + 1); // re-trigger animation
+    }, SWAP_DELAY_IN_MS);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  return (
+    <p className="mb-2.5 text-sm font-light uppercase">
+      <span className="inline-block size-2 bg-neutral-950" />
+      <span className="ml-3">
+        Description:{" "}
+        {current.split("").map((l, i) => (
+          <motion.span
+            key={`${restartKey}-${i}`} // force restart on key change
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              delay: i * LETTER_DELAY,
+              duration: 0,
+            }}
+            className="relative"
+          >
+            {l}
+            <motion.span
+              className="absolute bottom-[3px] left-[1px] right-0 top-[3px] bg-neutral-950"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{
+                delay: i * LETTER_DELAY,
+                times: [0, 0.1, 1],
+                duration: BOX_FADE_DURATION,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.span>
+        ))}
+      </span>
+    </p>
+  );
+};
+
 
 export default function BlogHome() {
   return (
@@ -27,7 +84,7 @@ export default function BlogHome() {
             <Link href={`/blog/${post.slug}`} className="text-2xl font-semibold text-blue-700 hover:underline">
               {post.title}
             </Link>
-            <p className="text-gray-600 mt-1">{post.description}</p>
+            <Typewrite examples={post.description} />
             <p className="text-sm text-gray-400">{new Date(post.date).toDateString()}</p>
           </motion.li>
         ))}
